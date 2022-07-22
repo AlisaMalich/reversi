@@ -1,0 +1,61 @@
+@startuml
+
+enum Player{
+    enum
+}
+
+class Board{
+    size: int
+    matrix
+    get_cell(row, col)
+    update_cell(row, col, player)
+}
+
+class Game{
+    board = Board(board_size)
+    self.current_player = Player.X
+
+    change_player()
+    make_move(row, col)
+    is_valid_move(row, col)
+}
+
+abstract GameView{
+    game: Game
+    get_move()
+    {abstract} get_move()
+    {abstract} draw_board()
+    {abstract} display_winner()
+}
+
+class GameConsoleView{
+    game: Game
+    board_view:BoardConsoleView
+    get_move()
+    draw_board()
+    display_winner()
+}
+
+abstract BoardView{
+    board:Board
+    {abstract} draw_board()
+}
+
+class BoardConsoleView{
+    board:Board
+    symbols: {0:'', 1:'X', 2:'O'}
+    draw_board()
+}
+
+class GameController{
+    view
+    model
+    run_game()
+}
+
+Game o-- Board
+Game o-- Player
+BoardConsoleView <|-- BoardView
+BoardConsoleView o-- Board
+GameConsoleView <|-- GameView
+
