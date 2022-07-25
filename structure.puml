@@ -12,50 +12,51 @@ class Board{
 }
 
 class Game{
-    board = Board(board_size)
-    self.current_player = Player.X
+    board:Board
+    current_player:Player
 
-    change_player()
-    make_move(row, col)
     is_valid_move(row, col)
+    check_direction(row, col)
+    make_move(row, col)
+    change_player()
 }
 
-abstract GameView{
+abstract class GameView{
     game: Game
-    get_move()
     {abstract} get_move()
-    {abstract} draw_board()
-    {abstract} display_winner()
 }
 
 class GameConsoleView{
     game: Game
-    board_view:BoardConsoleView
     get_move()
-    draw_board()
-    display_winner()
 }
 
-abstract BoardView{
+abstract class BoardView{
     board:Board
     {abstract} draw_board()
 }
 
 class BoardConsoleView{
     board:Board
-    symbols: {0:'', 1:'X', 2:'O'}
+    symbols
     draw_board()
 }
 
 class GameController{
-    view
-    model
+    view: GameConsoleView
+    model: Game
     run_game()
 }
 
-Game o-- Board
-Game o-- Player
+Game *-- Board
+Game *-- Player
 BoardConsoleView <|-- BoardView
-BoardConsoleView o-- Board
+BoardConsoleView *-- Board
 GameConsoleView <|-- GameView
+GameConsoleView *-- Game
+GameView *-- Game
+GameController *-- GameConsoleView
+GameController *-- Game
+GameConsoleView *--BoardConsoleView
+
 
