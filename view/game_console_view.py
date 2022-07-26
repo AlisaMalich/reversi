@@ -13,7 +13,7 @@ class GameConsoleView(GameView):
         row, col = int(s[0]), int(s[1])
         row -= 1
         col -= 1
-        print(row, col)
+        # print(row, col)
         return row, col
 
     def draw_board(self):

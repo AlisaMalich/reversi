@@ -22,7 +22,7 @@ class BoardConsoleView(BoardView):
         for i in range(1, board_size + 1):
             str = f' {i}|'
             for j in range(1, board_size + 1):
-                cell = self.board.get_cell(i, j)
+                cell = self.board.get_cell(i - 1, j - 1)
                 str += f' {self.symbols[cell]} |'
             print(str)
             print(divider)

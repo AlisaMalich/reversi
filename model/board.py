@@ -8,7 +8,6 @@ class Board:
         # Allocate the board with empty squares
         # self.mat = [[self.EMPTY_CELL] * size for _ in range(size)]
         self.mat = [[self.EMPTY_CELL] * size for _ in range(size)]
-
         half = int(size / 2)
         self.mat[half-1][half-1] = Player.X
         self.mat[half-1][half] = Player.O
@@ -26,7 +25,7 @@ class Board:
         Returns:
             int: 0 or 1 or 2
         """
-        return self.mat[row - 1][col - 1]
+        return self.mat[row][col]
 
     def update_cell(self, row, col, player):
         self.mat[row][col] = player

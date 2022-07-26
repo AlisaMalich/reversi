@@ -20,8 +20,10 @@ class Game:
             row (int)
             col (int)
         """
-        print('make_move_func')
+        # print('make_move_func')
         steps = self.is_valid_move(row, col)
+        # print(steps)
+        # print(self.curr_player)
         if len(steps) == 0:
             return False
         else:
@@ -54,17 +56,23 @@ class Game:
         Returns:
             Bool
         """
+        # print('is_opposite_cell -> get_cell', self.board.get_cell(row, col))
+        # print('curr_player', self.curr_player)
         return self.board.get_cell(row, col) == self.curr_player
 
     def is_valid_move(self, row, col):
         # save the cell program started from
         target_cell = (row, col)
-
+        # print('target cell = ', target_cell)
         for direction in self.DIRECTIONS:
             curr_cell = target_cell
+            print("curr_cell: ", curr_cell)
             # make the first step in the direction
             curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
+            print("curr_cell: ", curr_cell[0], curr_cell[1])
             # continue making steps while the cell is on board and occupied by opponents disk
+            print(self.is_on_board(curr_cell[0], curr_cell[1]))
+            print(self.is_opposite_cell(curr_cell[0], curr_cell[1]))
             while self.is_on_board(curr_cell[0], curr_cell[1]) and self.is_opposite_cell(curr_cell[0], curr_cell[1]):
                 curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
             # after while loop check why it was interupted
