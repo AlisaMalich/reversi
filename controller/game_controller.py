@@ -16,6 +16,16 @@ class GameController:
             while not self.model.is_empty_cell(row, col):
                 #TODO display error message
                 row, col = self.view.get_move()
+            
+            self.model.make_move(row, col)
+
+            # player = self.model.check_winner()
+            # if player:
+            #     self.view.display_winner(player)
+            #     break
+            
+            self.model.change_player()
+
 
             # # save the cell program started from
             # target_cell = (row, col)

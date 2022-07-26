@@ -1,5 +1,5 @@
 from enum import IntEnum
 
 class Player(IntEnum):
-    B = 1
-    W = 2
+    X = 1
+    O = 2

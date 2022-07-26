@@ -1,11 +1,11 @@
-from board import Board
-from player import Player
+from model.board import Board
+from model.player import Player
 
 class Game:
     DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
     def __init__(self, board_size):
-        self.board = Board.get_board(board_size)
+        self.board = Board(board_size)
         self.curr_player = Player.X
 
     def change_player(self):
@@ -20,6 +20,7 @@ class Game:
             row (int)
             col (int)
         """
+        print('make_move_func')
         steps = self.is_valid_move(row, col)
         if len(steps) == 0:
             return False

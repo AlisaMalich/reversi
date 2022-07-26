@@ -1,4 +1,4 @@
-from board_view import BoardView
+from view.board_view import BoardView
 from model.board import Board
 
 class BoardConsoleView(BoardView):
@@ -11,19 +11,19 @@ class BoardConsoleView(BoardView):
         """_summary_
         """
         board_size = self.board.size
-        header = '|'
+        header = '  |'
         divider = '--+'
         for i in range(1, board_size + 1):
-            header += f'{i} |'
+            header += f' {i} |'
             divider += '---+'
         print(header)
         print(divider)
 
-        for i in range(board_size):
-            str = f'{i}'
-            for j in range(board_size):
+        for i in range(1, board_size + 1):
+            str = f' {i}|'
+            for j in range(1, board_size + 1):
                 cell = self.board.get_cell(i, j)
-                str += f'| {self.symbols[cell]} '
+                str += f' {self.symbols[cell]} |'
             print(str)
             print(divider)
                 
