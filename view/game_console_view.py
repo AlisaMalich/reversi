@@ -2,6 +2,7 @@ from view.game_view import GameView
 from view.board_console_view import BoardConsoleView
 from model.game import Game
 
+
 class GameConsoleView(GameView):
 
     def __init__(self, game: Game):

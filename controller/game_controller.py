@@ -2,7 +2,6 @@ from view.game_console_view import GameConsoleView
 from model.game import Game
 
 class GameController:
-    DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
     def __init__(self, view:GameConsoleView, model: Game):
         self.view = view
