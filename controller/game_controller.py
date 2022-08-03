@@ -1,9 +1,10 @@
 from view.game_console_view import GameConsoleView
-from model.game import Game
+# from model.game import Game
+from model.game_against_human import GameAgainstHuman
 
 class GameController:
 
-    def __init__(self, view:GameConsoleView, model: Game):
+    def __init__(self, view:GameConsoleView, model: GameAgainstHuman):
         self.view = view
         self.model = model
 
