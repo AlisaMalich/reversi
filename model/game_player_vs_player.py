@@ -4,8 +4,8 @@ from model.player import Player
 # from model.score import Score
 
 class GamePlayerVsPlayer(Game):
-    # DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
-    DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+    DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
+    # DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
 
     def __init__(self, board_size):
         super().__init__(board_size)
@@ -21,21 +21,14 @@ class GamePlayerVsPlayer(Game):
     def make_move(self, row, col):
         """Calls function to update the cell value
         """
-        valid_move = self.is_valid_move(row, col)
-        if valid_move:
-            print('cell', valid_move[0])
-            print('dir', valid_move[1])
+        cells_to_update = self.is_valid_move(row, col)
+        if cells_to_update:
+            for cell in cells_to_update:
+                self.board.update_cell(cell[0], cell[1], self.curr_player)
         else: 
             # TODO error handling
             print('The move is not valid')
             
-
-        if steps:
-            for step in steps:
-                self.board.update_cell(step[0], step[1], self.curr_player)
-            # нужен else?
-            else:
-                return False
 
     def is_empty_cell(self, row, col):
         """Check whether the cell value equals 0 
@@ -51,12 +44,14 @@ class GamePlayerVsPlayer(Game):
         return self.board.get_cell(row, col) == self.opponent
 
     def is_valid_move(self, row, col):
-        target_cell = (row, col)
-        valid_move = []
+        # target_cell = (row, col)
+        target_cell = [row, col]
+        is_valid = False
 
         for direction in self.DIRECTIONS:
             curr_cell = target_cell
-            curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
+            # curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
+            curr_cell = [curr_cell[0] + direction[0], curr_cell[1] + direction[1]]
 
             if self.is_opponent_cell(curr_cell[0], curr_cell[1]):
                 while self.is_opponent_cell(curr_cell[0], curr_cell[1]):
@@ -66,16 +61,24 @@ class GamePlayerVsPlayer(Game):
                     break
 
                 if not self.is_opponent_cell(curr_cell[0], curr_cell[1]):
-                    valid_move.append(curr_cell)
-                    valid_move.append(direction)
+                    is_valid = True
                 break
-            else:
-                valid_move = []
 
-        if len(valid_move) > 0:
-            return valid_move
+        if is_valid:
+            return self.get_list_of_moves(target_cell, curr_cell, direction)
         else:
             return None
+
+    def get_list_of_moves(self, target_cell, curr_cell, direction):
+        """Get list of cells to update
+        """
+        cells_to_update = []
+        curr_cell = list(curr_cell)
+        while target_cell != curr_cell:
+            curr_cell[0] = curr_cell[0] - direction[0]
+            curr_cell[1] = curr_cell[1] - direction[1]
+            cells_to_update.append([curr_cell[0], curr_cell[1]])
+        return cells_to_update
 
     def check_winner(self):
         """Check whether the game is over
