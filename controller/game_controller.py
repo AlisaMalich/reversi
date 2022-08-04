@@ -1,10 +1,10 @@
 from view.game_console_view import GameConsoleView
 # from model.game import Game
-from model.game_against_human import GameAgainstHuman
+from model.game_player_vs_player import GamePlayerVsPlayer
 
 class GameController:
 
-    def __init__(self, view:GameConsoleView, model: GameAgainstHuman):
+    def __init__(self, view:GameConsoleView, model: GamePlayerVsPlayer):
         self.view = view
         self.model = model
 
@@ -13,6 +13,7 @@ class GameController:
             self.view.draw_board()
 
             row, col = self.view.get_move()
+            print('It works: ', self.model.is_empty_cell(row, col))
             while not self.model.is_empty_cell(row, col):
                 #TODO display error message
                 row, col = self.view.get_move()
