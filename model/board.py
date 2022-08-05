@@ -25,6 +25,7 @@ class Board:
         Returns:
             int: 0 or 1 or 2
         """
+        # print('from gett_cell', row, col)
         return self.mat[row][col]
 
     def update_cell(self, row, col, player):
