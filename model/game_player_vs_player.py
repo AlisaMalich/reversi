@@ -1,7 +1,7 @@
 from model.game import Game
 from model.board import Board
 from model.player import Player
-# from model.score import Score
+from model.score import Score
 
 class GamePlayerVsPlayer(Game):
     DIRECTIONS = [[0, 1], [0, -1], [1, 0], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1]]
@@ -12,6 +12,7 @@ class GamePlayerVsPlayer(Game):
         self.curr_player = Player.X
         self.opponent = Player.O
         self.board = Board(board_size)
+        self.score = Score()
 
     def change_player(self):
         """This function changes a current player
@@ -25,11 +26,15 @@ class GamePlayerVsPlayer(Game):
         if cells_to_update:
             for cell in cells_to_update:
                 self.board.update_cell(cell[0], cell[1], self.curr_player)
+            self.score.update_score(len(cells_to_update), self.curr_player)
         else: 
             # TODO error handling
             print('The move is not valid')
-            
+        
+        print('X: ', self.score.Player_X_score)
+        print('O: ', self.score.Player_O_score)
 
+    
     def is_empty_cell(self, row, col):
         """Check whether the cell value equals 0 
         """
@@ -49,6 +54,7 @@ class GamePlayerVsPlayer(Game):
         is_valid = False
 
         for direction in self.DIRECTIONS:
+            # try:
             curr_cell = target_cell
             # curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
             curr_cell = [curr_cell[0] + direction[0], curr_cell[1] + direction[1]]
@@ -83,4 +89,6 @@ class GamePlayerVsPlayer(Game):
     def check_winner(self):
         """Check whether the game is over
         """
+
+        
         
