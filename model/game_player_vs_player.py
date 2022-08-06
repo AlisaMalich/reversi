@@ -1,3 +1,4 @@
+from datetime import datetime
 from model.game import Game
 from model.board import Board
 from model.player import Player
@@ -28,18 +29,13 @@ class GamePlayerVsPlayer(Game):
         """Calls function to update the cell value
         """
         # print('make_move', row, col)
-        cells_to_update = self.is_valid_move(row, col)
+        cells_to_update = self.is_valid_move(row, col, self.curr_player)
         if cells_to_update:
             for cell in cells_to_update:
                 self.board.update_cell(cell[0], cell[1], self.curr_player)
             self.score.update_score(len(cells_to_update), self.curr_player)
         else: 
-            # TODO error handling
-            print('The move is not valid')
-        
-        # print('X: ', self.score.Player_X_score)
-        # print('O: ', self.score.Player_O_score)
-
+            return None
     
     def is_empty_cell(self, row, col):
         """Check whether the cell value equals 0 
@@ -51,15 +47,19 @@ class GamePlayerVsPlayer(Game):
         # print('board_size', self.board.size)
         return row < self.board.size and col < self.board.size and row >= 0 and col >= 0
 
-    def is_opponent_cell(self, row, col):
+    def is_opponent_cell(self, row, col, player):
         """Check whether the opposite disk on given cell
         """
         # print('from is_opponent', row, col)
         # print('from is_opponent -> get cell', self.board.get_cell(row, col))
         # print('from is_opponent -> opponent', self.opponent)
-        return self.board.get_cell(row, col) == self.opponent
+        if player == self.curr_player:
+            return self.board.get_cell(row, col) == self.opponent
+        else:
+            return self.board.get_cell(row, col) == self.curr_player
 
-    def is_valid_move(self, row, col):
+
+    def is_valid_move(self, row, col, player):
         # target_cell = (row, col)
         target_cell = [row, col]
         is_valid = False
@@ -71,9 +71,9 @@ class GamePlayerVsPlayer(Game):
             # print('curr_cell', curr_cell)
             if self.is_on_board(curr_cell[0], curr_cell[1]):
                 # print('is_on_board', self.is_on_board(curr_cell[0], curr_cell[1]))
-                if self.is_opponent_cell(curr_cell[0], curr_cell[1]):
+                if self.is_opponent_cell(curr_cell[0], curr_cell[1], player):
                     # print('is_opponent_cell', self.is_opponent_cell(curr_cell[0], curr_cell[1]))
-                    while self.is_on_board(curr_cell[0], curr_cell[1]) and self.is_opponent_cell(curr_cell[0], curr_cell[1]):
+                    while self.is_on_board(curr_cell[0], curr_cell[1]) and self.is_opponent_cell(curr_cell[0], curr_cell[1], player):
                         curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
                         # print('curr_cell', curr_cell)
 
@@ -84,7 +84,8 @@ class GamePlayerVsPlayer(Game):
                         continue
 
                     # if not self.is_opponent_cell(curr_cell[0], curr_cell[1]):
-                    if self.board.get_cell(curr_cell[0], curr_cell[1]) == self.curr_player:
+                    # if self.board.get_cell(curr_cell[0], curr_cell[1]) == self.curr_player:
+                    if self.board.get_cell(curr_cell[0], curr_cell[1]) == player:
                         is_valid = True
                     break
 
@@ -104,26 +105,31 @@ class GamePlayerVsPlayer(Game):
             cells_to_update.append([curr_cell[0], curr_cell[1]])
         return cells_to_update
 
-    def is_game_over(self):
+    def is_game_over(self, player):
         """Check whether the game is over
         """
         for i in range(self.board.size):
             for j in range(self.board.size):
-                if self.is_empty_cell(i, j) and self.is_valid_move(i, j):
-                    print(self.curr_player)
-                    print(self.is_valid_move(i, j))
+                if self.is_empty_cell(i, j) and self.is_valid_move(i, j, player):
+                    print(player)
+                    print(self.is_valid_move(i, j, player))
                     return False
         return True
 
     def get_results(self):
         if self.score.Player_X_score > self.score.Player_O_score:
-            return f'{Player.X} won! The score is {self.score.Player_X_score}:{self.score.Player_O_score}'
+            return f'Player {Player.X} won! The score is {self.score.Player_X_score}:{self.score.Player_O_score}'
         elif self.score.Player_O_score > self.score.Player_X_score:
-            return f'{Player.O} won! The score is {self.score.Player_O_score}:{self.score.Player_X_score}'
+            return f'Player {Player.O} won! The score is {self.score.Player_O_score}:{self.score.Player_X_score}'
         else:
             return f"It's a draw! The score is {self.score.Player_X_score}:{self.score.Player_O_score}"
 
-        
+    def store_results(self, file_path='reversi_results.txt'):
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        with open(file_path, 'w') as f:
+            f.write(f'{date} - {self.get_results()}\n')
+
+
 
 
 

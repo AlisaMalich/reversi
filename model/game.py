@@ -19,8 +19,3 @@ class Game(ABC):
         """
         pass
 
-    # @abstractmethod
-    # def check_winner(self):
-    #     """Check whether the game is over
-    #     """
-    #     pass
