@@ -19,6 +19,7 @@ class GameController:
             self.model.make_move(row, col)            
             self.model.change_player()
         
+        self.view.draw_board()
         print(self.model.get_results())
             
         
