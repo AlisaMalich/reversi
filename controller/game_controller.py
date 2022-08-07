@@ -1,12 +1,12 @@
 from view.game_console_view import GameConsoleView
 # from model.game_player_vs_player import GamePlayerVsPlayer
-from model.game_player_vs_ai import GamePlayerVsAi
+from model.game import Game
 
 class GameController:
     
     mode = None
 
-    def __init__(self, view:GameConsoleView, model: GamePlayerVsAi):
+    def __init__(self, view:GameConsoleView, model: Game):
         self.view = view
         self.model = model
 

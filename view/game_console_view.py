@@ -1,11 +1,11 @@
 from model.exceptions.user_input import UserInputError
 from view.game_view import GameView
 from view.board_console_view import BoardConsoleView
-from model.game_player_vs_player import GamePlayerVsPlayer
+from model.game import Game
 
 class GameConsoleView(GameView):
 
-    def __init__(self, game: GamePlayerVsPlayer):
+    def __init__(self, game: Game):
         # super().__init__(game)
         super().__init__(GameView)
         self.board_view = BoardConsoleView(game.board)
