@@ -19,12 +19,17 @@ class GamePlayerVsPlayer(Game):
         """This function changes a current player
         """
         self.curr_player, self.opponent = self.opponent, self.curr_player
-        # self.curr_player = 3 - self.curr_player
-        # if self.curr_player == Player.X:
-        #     self.curr_player = Player.O
-        # elif self.curr_player == Player.O:
-        #     self.curr_player = Player.X
 
+    # def make_move(self, row, col):
+    #     """Calls function to update the cell value
+    #     """
+    #     # print('make_move', row, col)
+    #     cells_to_update = self.is_valid_move(row, col, self.curr_player)
+    #     # if cells_to_update:
+    #     for cell in cells_to_update:
+    #         self.board.update_cell(cell[0], cell[1], self.curr_player)
+    #     self.score.update_score(len(cells_to_update), self.curr_player)
+        
     def make_move(self, row, col):
         """Calls function to update the cell value
         """
@@ -35,6 +40,7 @@ class GamePlayerVsPlayer(Game):
                 self.board.update_cell(cell[0], cell[1], self.curr_player)
             self.score.update_score(len(cells_to_update), self.curr_player)
         else: 
+            # return None
             return None
     
     def is_empty_cell(self, row, col):

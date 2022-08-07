@@ -44,20 +44,22 @@
 #                 print('Input must be numeric! Try again')
 
 import re
+# from model.board import Board
+
 class UserInputError(Exception):
     
-    # def __init__(self):
-    #     super().__init__()
-    #     self.str = str
-    #     self.str_format = '^[0-8],[0-8]$'
     str_format = '^[0-8],[0-8]$'
+    mode_format = '^[1-2]$'
 
-    # def __str__(self) -> str:
-    #     return f'Input is not in a valid format'
 
     def is_numeric(self, str):
         if not re.match(self.str_format, str):
-            # raise Errors(str)
-            raise UserInputError('Input is not in a valid format')
+            raise UserInputError('Input is not in a valid format. Try again!')
+    
+    def check_mode(self, mode):
+        if not re.match(self.mode_format, mode):
+            raise UserInputError('Please, choose 1 or 2!')
+
+
 
 
