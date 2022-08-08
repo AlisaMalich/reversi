@@ -17,4 +17,8 @@ class GameView(ABC):
     def draw_board(self):
         pass
 
+    @abstractmethod
+    def print_winner(self):
+        pass
+
     

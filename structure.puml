@@ -4,56 +4,97 @@ enum Player{
     enum
 }
 
+package "Model" <<Rectangle>>{
 class Board{
-    size: int
-    matrix
-    get_cell(row, col)
-    update_cell(row, col, player)
+    - size: int
+    + get_cell(row, col)
+    + update_cell(row, col, player)
+}
+
+abstract AbsGame{
+    {abstract} change_player()
+    {abstract} make_move()
 }
 
 class Game{
-    board:Board
-    current_player:Player
+    - board
+    - current_player
+    - opponent
+    - score
 
-    is_valid_move(row, col)
-    check_direction(row, col)
-    make_move(row, col)
-    change_player()
+    + is_valid_move(row, col, player)
+    + make_move(row, col)
+    + change_player()
+    + is_empty_cell(row, col)
+    + is_on_board(row, col)
+    + is_opponent_cell(row, col, player)
+    + get_list_of_moves(target_cell, curr_cell, dir)
+    + has_valid_moves(player)
+    + store_results(str, file_path)
+    + make_move_ai(player)
 }
 
+class Score{
+    - Player_X_score
+    - Player_O_score
+
+    + update_score(num_of_moves, curr_player)
+}
+}
+
+package "View" <<Rectangle>>{
+
 abstract class GameView{
-    game: Game
+    - game
+    {abstract} print_greeting()
     {abstract} get_move()
+    {abstract} draw_board()
+    {abstract} print_winner()
+
 }
 
 class GameConsoleView{
-    game: Game
-    get_move()
+    - game
+    - board_view
+    - player_x
+    - player_o
+    + print_greeting()
+    + get_move()
+    + draw_board()
+    + print_winner()
 }
 
 abstract class BoardView{
-    board:Board
+    - board
     {abstract} draw_board()
 }
 
 class BoardConsoleView{
-    board:Board
-    symbols
-    draw_board()
+    - symbols
+    + draw_board()
+}
 }
 
+package "Controller" <<Rectangle>>{
 class GameController{
-    view: GameConsoleView
-    model: Game
-    run_game()
+    - view
+    - model
+    + run_game()
+}
 }
 
+Board <.. Player
 Game *-- Board
-Game *-- Player
+Game <|-- AbsGame
+Game <.. Player
+Game *-- Score
+Score <.. Player
 BoardConsoleView <|-- BoardView
 BoardConsoleView *-- Board
 GameConsoleView <|-- GameView
 GameConsoleView *-- Game
+GameConsoleView *-- BoardConsoleView
+GameConsoleView <.. Player
 GameView *-- Game
 GameController *-- GameConsoleView
 GameController *-- Game
