@@ -6,15 +6,15 @@ class GameView(ABC):
         self.game = Game
 
     @abstractmethod
+    def print_greeting(self):
+        pass
+
+    @abstractmethod
     def get_move(self):
         pass
 
-    # @abstractmethod
-    # def draw_board(self):
-    #     pass
-
-    # @abstractmethod
-    # def display_winner(self, player):
-    #     pass
+    @abstractmethod
+    def draw_board(self):
+        pass
 
     

@@ -8,8 +8,6 @@ class BoardConsoleView(BoardView):
         super().__init__(board)
 
     def draw_board(self):
-        """_summary_
-        """
         board_size = self.board.size
         header = '  |'
         divider = '--+'
@@ -26,6 +24,4 @@ class BoardConsoleView(BoardView):
                 str += f' {self.symbols[cell]} |'
             print(str)
             print(divider)
-                
-
 

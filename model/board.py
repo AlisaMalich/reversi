@@ -5,8 +5,6 @@ class Board:
 
     def __init__(self, size):
         self.size = size
-        # Allocate the board with empty squares
-        # self.mat = [[self.EMPTY_CELL] * size for _ in range(size)]
         self.mat = [[self.EMPTY_CELL] * size for _ in range(size)]
         half = int(size / 2)
         self.mat[half-1][half-1] = Player.X
@@ -16,7 +14,7 @@ class Board:
 
 
     def get_cell(self, row, col):
-        """Returns a value of specific cell of matrix
+        """Returns a value of specific cell of current board
 
         Args:
             row (int)
@@ -25,9 +23,15 @@ class Board:
         Returns:
             int: 0 or 1 or 2
         """
-        # print('from gett_cell', row, col)
         return self.mat[row][col]
 
     def update_cell(self, row, col, player):
+        """Updates a value of specific cell of current board
+
+        Args:
+            row (int): mat[row][col]
+            col (int): mat[row][col]
+            player: Player.X or Player.O
+        """
         self.mat[row][col] = player
 

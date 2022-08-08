@@ -9,13 +9,9 @@ class AbsGame(ABC):
 
     @abstractmethod
     def change_player(self):
-        """This function changes a player
-        """
         pass
 
     @abstractmethod
     def make_move(self, row, col):
-        """Calls function to update the cell value
-        """
         pass
 
