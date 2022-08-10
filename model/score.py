@@ -21,6 +21,19 @@ class Score():
         else:
             self.Player_X_score -= (num_of_moves - 1)
             self.Player_O_score += num_of_moves
+    
+    def get_score(self, num_of_moves, curr_player):
+        if curr_player == Player.X:
+            x_score += num_of_moves
+            o_score -= (num_of_moves - 1)
+        else:
+            x_score -= (num_of_moves - 1)
+            o_score += num_of_moves
+
+        score = []
+        score.append(x_score)
+        score.append(o_score)
+        return score
 
 
 

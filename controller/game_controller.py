@@ -1,5 +1,6 @@
 from view.game_console_view import GameConsoleView
 from model.game import Game
+from model.simple_ai import SimpleAi
 
 class GameController:
     mode = None
@@ -41,6 +42,7 @@ class GameController:
                 break
 
         elif mode == '2':
+            ai = SimpleAi(self.model)
             while True:
                 # at each itteration of while-loop, 
                 # if each of them has any valid move, 
@@ -60,14 +62,16 @@ class GameController:
                     self.view.draw_board()
 
                     if self.model.has_valid_moves(self.model.opponent):
-                        self.model.make_move_ai(self.model.opponent) 
+                        # self.model.make_move_ai(self.model.opponent) 
+                        ai.make_move(self.model.opponent)
                     continue
                 
                 # if only opponent player has valid move
                 # -> opponent player makes a move
                 # -> returns to the beginning of the while-loop
                 if self.model.has_valid_moves(self.model.opponent):
-                    self.model.make_move_ai(self.model.opponent) 
+                    # self.model.make_move_ai(self.model.opponent) 
+                    ai.make_move(self.model.opponent)
                     continue
 
                 # if neither current player nor opponent player has any valid move

@@ -1,0 +1,20 @@
+def choose_move(self, board):
+  for each possible move in the current board:
+    new_board = the updated board after making the move
+    board_value = minimax(new_board, self, opponent)
+  return the move with the highest board_value
+
+def minimax(self, board, max_player, min_player):
+  if board is in terminal state:
+    return 1/-1/0 if it is a win/loss/draw for the AI max_player
+  
+  values = []
+  for each possible move for the max_player in the current board:
+    new_board = the updated board after making the move
+    board_value = minimax(new_board, min_player, max_player)
+    values.append(board_value)
+
+  if self == max_player:
+    return max(values)
+  else:
+    return min(values)
