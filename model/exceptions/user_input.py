@@ -5,7 +5,7 @@ class UserInputError(Exception):
     """
 
     str_format = '^[0-8],[0-8]$'
-    mode_format = '^[1-2]$'
+    mode_format = '^[1-3]$'
 
     def is_numeric(self, str):
         """Check validity of the User input when User enter a cell coordinates to make a move
@@ -17,7 +17,7 @@ class UserInputError(Exception):
         """Check validity of the User input when User enter a mode of the game
         """
         if not re.match(self.mode_format, mode):
-            raise UserInputError('Please, choose 1 or 2!')
+            raise UserInputError('Please, choose 1, 2 or 3!')
 
 
 

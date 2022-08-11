@@ -24,7 +24,8 @@ class GameConsoleView(GameView):
         print('Welcome to Reversi!\n' \
         'Choose a player mode:\n' \
         '1. Player vs Player\n' \
-        '2. Player vs Computer\n')
+        '2. Player vs Computer(simple)\n' \
+        '3. Player vs Computer(advanced)\n')
         
         while True:
             try:

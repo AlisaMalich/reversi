@@ -1,6 +1,7 @@
 from view.game_console_view import GameConsoleView
 from model.game import Game
 from model.simple_ai import SimpleAi
+from model.minimax import Minimax
 
 class GameController:
     mode = None
@@ -77,6 +78,33 @@ class GameController:
                 # if neither current player nor opponent player has any valid move
                 # -> the while-loop is broken (game is over)
                 break
+
+        elif mode == '3':
+            ai = Minimax(self.model)
+            while True:
+                # at each itteration of while-loop, 
+                # if each of them has any valid move, 
+                # the current player makes a move & the opponent player makes a move
+                if self.model.has_valid_moves(self.model.curr_player):
+                    self.view.draw_board()
+                    while True:
+                        try:
+                            row, col = self.view.get_move()
+                            assert self.model.is_empty_cell(row, col), 'This cell is not empty. Try again!'
+                        except AssertionError as e:
+                            print(e)
+                            continue
+                        else:
+                            break
+                    self.model.make_move(row, col)
+                    self.view.draw_board()
+
+                    if self.model.has_valid_moves(self.model.opponent):
+                        # print('ai moves: ', ai.get_all_valid_moves(self.model.opponent))
+                        # ai.choose_move()
+                        print(ai.choose_move())
+                    continue
+
 
         self.view.draw_board()
         result = self.view.print_winner()

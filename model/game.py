@@ -122,56 +122,5 @@ class Game(AbsGame):
         with open(file_path, 'a') as f:
             f.write(f'{date} - {str}\n')
 
-    # def make_move_ai(self, player=Player.O):
-    #     """Makes the most efficient move 
-    #     """
-        # all_valid_moves = []
-        # # stores all possible moves in a list
-        # for i in range(self.board.size):
-        #     for j in range(self.board.size):
-        #         if self.is_empty_cell(i, j) and self.is_valid_move(i, j, player):
-        #             all_valid_moves.append(self.is_valid_move(i, j, player))
-        # define the best move as move with the maximum length: the move with
-        # the largest number of cells to update
-        # best_move = max(all_valid_moves, key=lambda x: len(x))
-        # updates the cells and scores of both players
-    #     best_move = self.game_simple_ai.find_best_move()
-    #     for cell in best_move:
-    #         self.board.update_cell(cell[0], cell[1], player)
-    #     self.score.update_score(len(best_move), player)
-    # # def make_move_ai(self, player=Player.O):
-    #     """Makes the most efficient move 
-    #     """
-    #     all_valid_moves = []
-    #     # stores all possible moves in a list
-    #     for i in range(self.board.size):
-    #         for j in range(self.board.size):
-    #             if self.is_empty_cell(i, j) and self.is_valid_move(i, j, player):
-    #                 all_valid_moves.append(self.is_valid_move(i, j, player))
-    #     # define the best move as move with the maximum length: the move with
-    #     # the largest number of cells to update
-    #     best_move = max(all_valid_moves, key=lambda x: len(x))
-    #     # updates the cells and scores of both players
-    #     for cell in best_move:
-    #         self.board.update_cell(cell[0], cell[1], player)
-    #     self.score.update_score(len(best_move), player)
-
-    # def choose_move(self, player=Player.O):
-    #     all_valid_moves = []
-    #     for i in range(self.board.size):
-    #         for j in range(self.board.size):
-    #             if self.is_empty_cell(i, j) and self.is_valid_move(i, j, player):
-    #                 all_valid_moves.append(self.is_valid_move(i, j, player))
-
-    #     for move in all_valid_moves:
-    #         new_score = self.score.get_score(len(move), player)
-    #         value = minimax(self, new_score)
-        
-    #     # ???
-    #     return move
-
-    # def minimax(self, score, player_ai=Player.O, player_human=Player.X):
-
-    #     if self.board
 
 
