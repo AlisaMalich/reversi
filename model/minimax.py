@@ -2,6 +2,8 @@ from copy import deepcopy
 import math
 from model.game import Game
 from model.player import Player
+from .board import Board
+
 
 class Minimax():
     def __init__(self, game:Game, max_depth=3):
@@ -15,6 +17,7 @@ class Minimax():
         best_move = None
 
         moves = self.get_all_valid_moves()
+        print('all_valid', moves)
         for move in moves:
             new_board = deepcopy(self.game.board)
             self.make_move(move, new_board)
@@ -35,25 +38,25 @@ class Minimax():
 
         return all_valid_moves
 
-    def make_move(self, cells_to_update, board, player=Player.O):
+    def make_move(self, cells_to_update, board:Board, player=Player.O):
         for cell in cells_to_update:
             board.update_cell(cell[0], cell[1], player)
 
-    def is_terminal_state(self, board):
+    def is_terminal_state(self, board:Board):
         for i in range(self.game.board_size):
             for j in range(self.game.board_size):
-                if board.is_empty_cell(i, j):
+                if self.game.is_empty_cell(i, j):
                     if self.game.is_valid_move(i, j, Player.X) or self.game.is_valid_move(i, j, Player.O):
                         return False
         return True
 
-    def get_score(self, board):
+    def get_score(self, board:Board):
         player_x_score = 0
         player_o_score = 0
 
         for i in range(self.game.board_size):
             for j in range(self.game.board_size):
-                cell = board.get_move(i, j)
+                cell = board.get_cell(i, j)
 
                 if cell == self.curr_player:
                     player_o_score += 1
@@ -62,7 +65,8 @@ class Minimax():
 
         return player_o_score, player_x_score
 
-    def minimax(self, depth, board, max_player, min_player):
+    def minimax(self, depth, board:Board, max_player, min_player):
+        
         if depth == self.max_depth or self.is_terminal_state(board):
             (player_score, opponent_score) = self.get_score(board)
             if player_score > opponent_score:
@@ -75,6 +79,8 @@ class Minimax():
         values = []
 
         moves = self.get_all_valid_moves(max_player)
+        print('max_player', max_player)
+        print('moves', moves)
         for move in moves:
             new_board = deepcopy(self.game.board)
             self.make_move(move, new_board)

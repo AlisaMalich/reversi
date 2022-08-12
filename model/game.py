@@ -70,6 +70,7 @@ class Game(AbsGame):
                 if self.is_opponent_cell(curr_cell[0], curr_cell[1], player):
                     while self.is_on_board(curr_cell[0], curr_cell[1]) and self.is_opponent_cell(curr_cell[0], curr_cell[1], player):
                         curr_cell = (curr_cell[0] + direction[0], curr_cell[1] + direction[1])
+                    
 
                     if not self.is_on_board(curr_cell[0], curr_cell[1]):
                         continue
@@ -80,6 +81,9 @@ class Game(AbsGame):
                     # the move is valid only if loop stops because the cell is occupied 
                     # by the current player disk
                     if self.board.get_cell(curr_cell[0], curr_cell[1]) == player:
+                        # print('curr_cell', curr_cell)
+                        # print('cell_value', self.board.get_cell(curr_cell[0], curr_cell[1]))
+                        # print('player', player)
                         is_valid = True
                     break
 
@@ -122,5 +126,15 @@ class Game(AbsGame):
         with open(file_path, 'a') as f:
             f.write(f'{date} - {str}\n')
 
+
+    # def get_all_valid_moves(self):
+    #     all_valid_moves = []
+    #     # stores all possible moves in a list
+    #     for i in range(self.board.size):
+    #         for j in range(self.board.size):
+    #             if self.is_empty_cell(i, j) and self.is_valid_move(i, j, self.curr_player):
+    #                 all_valid_moves.append(self.is_valid_move(i, j, self.curr_player))
+
+    #     print(all_valid_moves)
 
 

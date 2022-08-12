@@ -86,6 +86,7 @@ class GameController:
                 # if each of them has any valid move, 
                 # the current player makes a move & the opponent player makes a move
                 if self.model.has_valid_moves(self.model.curr_player):
+                    # self.model.get_all_valid_moves()
                     self.view.draw_board()
                     while True:
                         try:
@@ -100,9 +101,15 @@ class GameController:
                     self.view.draw_board()
 
                     if self.model.has_valid_moves(self.model.opponent):
-                        # print('ai moves: ', ai.get_all_valid_moves(self.model.opponent))
-                        # ai.choose_move()
-                        print(ai.choose_move())
+
+                        # function ai.choose_move() returns a move and work without errors
+                        # but it returns invalid move
+                        # because function get_all_valid_moves inside minimax class
+                        # doesn't work correctly (don't find out yet why :( )
+                        moves = ai.choose_move()
+                        for move in moves:
+                            self.model.board.update_cell(move[0], move[1], self.model.opponent)
+
                     continue
 
 
